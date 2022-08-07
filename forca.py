@@ -1,7 +1,7 @@
 from random import choice
+from forca_data_base import *
 from forca_functions import *
 from time import sleep
-from forca_data_base import *
 
 dificuldade = easy.copy()
 dificuldade_name = 'easy'
@@ -12,24 +12,24 @@ while menu:
     if escolha_menu == 1:
         if dificuldade_name == 'english':  # INGLÊS
             sys('cls')
-            nome = input('TYPE YOUR NAME: ').title()
+            nome = input(f'{WARNING}TYPE YOUR NAME: {ENDC}').title()
             fase = 0
             palavras = 0
             vidas = 6
             letras_escolhidas = []
 
             sys('cls')
-            print(f'WELCOME TO THE HANGMAN GAME {nome}\nTHINK CAREFULY, IF YOU MESS UP 6 TIMES IT WILL BE GAME OVER!\n')
+            print(f'{BOLD}WELCOME TO THE HANGMAN GAME {OKGREEN}{nome}{ENDC}\n{BOLD}THINK CAREFULY, IF YOU MESS UP 6 TIMES IT WILL BE {FAIL}GAME OVER!\n{ENDC}')
         else:  # PORTUGÊS
             sys('cls')
-            nome = input('DIGITE SEU NOME: ').title()
+            nome = input(f'{WARNING}DIGITE SEU NOME: {ENDC}').title()
             fase = 0
             palavras = 0
             vidas = 6
             letras_escolhidas = []
 
             sys('cls')
-            print(f'SEJA MUITO BEM VINDO AO JOGO DA FORCA {nome}\nPENSE COM CUIDADO, PORQUE SE VACILAR 6 VEZES SERÁ GAME OVER!\n')
+            print(f'{BOLD}SEJA MUITO BEM VINDO AO JOGO DA FORCA {OKGREEN}{nome}{ENDC}\n{BOLD}PENSE COM CUIDADO, PORQUE SE VACILAR 6 VEZES SERÁ {FAIL}GAME OVER!\n{ENDC}')
 
         jogo = True
         if dificuldade_name == 'english':  # INGLÊS
@@ -44,56 +44,67 @@ while menu:
                 escolha_letra = ''
                 contador = 0
 
-                continuar = input('\nPRESS ANY KEY TO CONTINUE\n--->')
+                continuar = input(f'\n{WARNING}PRESS ANY KEY TO CONTINUE\n--->{ENDC}')
 
                 sys('cls')
                 while True:
                     if len(dificuldade) < 0:
-                        print(f'\t\tCONGRATULATIONS, YOU GOT ALL WORD CORRECTLY!')
-                        print(f'\n\nTRY A DIFFERENT DIFICULTY YOU HAVE NOT COMPLETED YET')
-                        continuar = input('PRESS ANY KEY TO CONTINUE\n--->')
+                        print(f'\t\t{OKGREEN}{BOLD}CONGRATULATIONS, YOU GOT ALL WORD CORRECTLY!{ENDC}')
+                        print(f'\n\n{BOLD}TRY A DIFFERENT DIFICULTY YOU HAVE NOT COMPLETED YET{ENDC}')
+                        continuar = input(f'{WARNING}PRESS ANY KEY TO CONTINUE\n--->{ENDC}')
                         person = [nome, dificuldade_name, fase]
                         insert_one(person)
                         break
 
                     if vidas == 0:
                         sys('cls')
-                        print(f'GAME OVER\nTHE WORD WAS {palavra_escolhida.upper()}')
+                        print(f'{FAIL}{BOLD}GAME OVER{ENDC}\nTHE WORD WAS {OKGREEN}{palavra_escolhida.upper()}{ENDC}')
                         sleep(1)
-                        print(f'GAME OVER\nYOU GOT TO LEVEL: {fase}')
-                        continuar = input('PRESS ANY KEY TO CONTINUE\n--->')
+                        print(f'{FAIL}{BOLD}GAME OVER{ENDC}\n{BOLD}YOU GOT TO LEVEL: {OKGREEN}{fase}{ENDC}')
+                        continuar = input(f'{WARNING}PRESS ANY KEY TO CONTINUE\n--->{ENDC}')
                         jogo = False
                         person = [nome, dificuldade_name, fase]
                         insert_one(person)
                         break
                     
-                    print(f'LIFES: {vidas}\t\tLEVEL: {fase}\t\tDIFICULTY: {dificuldade_name}\n')
-                    print(f'letters chosen: {letras_escolhidas}')
+                    print(f'{HEADER}{BOLD}LIFES: {OKGREEN}{vidas}{ENDC}\t\t{HEADER}LEVEL: {OKGREEN}{fase}{ENDC}\t\t{OKGREEN}DIFICULTY: {dificuldade_name}{ENDC}\n')
+                    print(f'{BOLD}letters chosen: {FAIL}{letras_escolhidas}{ENDC}')
 
-                    print('chosen word: ', end='')
+                    print(f'{BOLD}chosen word: ', end='')
                     contador = 0
                     for i in palavra_escolhida:
                         if i in letras_escolhidas:
-                            print(i, end=' ')
+                            print(f'{OKGREEN}', i, f'{ENDC}', end=' ')
                             contador += 1
                         else:
-                            print('_', end=' ')
+                            print(f'{FAIL}_{ENDC}', end=' ')
                 
                     if contador == len(palavra_escolhida):
                         print('\n')
                         sys('cls')
-                        print(f'CONGRATULATIONS, YOU GOT IT RIGHT\nTHE WORD WAS {palavra_escolhida.upper()}')
+                        print(f'{OKGREEN}{BOLD}CONGRATULATIONS, YOU GOT IT RIGHT{ENDC}\nTHE WORD WAS {WARNING}{palavra_escolhida.upper()}{ENDC}')
                         letras_escolhidas.clear()
                         break
 
                     else:
                         print('\n')
-                        print('choose letter', end=' ')
-                        escolha_letra = input('--->').lower()
+                        print(f'{FAIL}[0] QUIT{ENDC}')
+                        print(f'{WARNING}choose letter', end=' ')
+                        escolha_letra = input(f'--->{ENDC}').lower()
+
+                        if escolha_letra == '0':
+                            sys('cls')
+                            print(f'{BOLD}YOU REALLY WANT TO QUIT?\n{FAIL}[0] QUIT\n{OKGREEN}[any key] CONTINUE{ENDC}')
+                            sair = input(f'{WARNING}--->{ENDC}')
+                            if sair == '0':
+                                jogo = False
+                                break
+                            else:
+                                sys('cls')
 
                         if escolha_letra == palavra_escolhida:
                             sys('cls')
-                            print(f'CONGRATULATIONS, YOU GOT IT RIGHT\nTHE WORD WAS {palavra_escolhida.upper()}')
+                            print(f'{OKGREEN}{BOLD}CONGRATULATIONS, YOU GOT IT RIGHT{ENDC}\nTHE WORD WAS {WARNING}{palavra_escolhida.upper()}{ENDC}')
                             letras_escolhidas.clear()
                             break
 
@@ -102,19 +113,22 @@ while menu:
                             sys('cls')
                             if escolha_letra not in palavra_escolhida:
                                 sys('cls')
-                                print(f'THIS WORD DOES NOT HAVE THE LETTER {escolha_letra}, TRY AGAIN\n{vidas - 1} LIFES LEFT')
+                                print(f'{BOLD}THIS WORD DOES NOT HAVE THE LETTER {FAIL}{escolha_letra}{ENDC}\n{BOLD}TRY AGAIN\n{FAIL}{vidas - 1} LIFES LEFT{ENDC}')
                                 vidas -= 1
                                 sleep(1)
                                 sys('cls')
+
                         elif escolha_letra != palavra_escolhida and len(escolha_letra) == len(palavra_escolhida):
                             sys('cls')
-                            print(f'THIS WORD IS NOT {escolha_letra}, TRY AGAIN\n{vidas - 1} LIFES LEFT')
+                            print(f'{BOLD}THIS WORD IS NOT {FAIL}{escolha_letra}{ENDC}\n{BOLD}TRY AGAIN\n{ENDC}{FAIL}{vidas - 1} LIFES LEFT{ENDC}')
                             vidas -= 1
                             sleep(1)
                             sys('cls')
-                        else:
+
+                        elif escolha_letra != '0':
                             sys('cls')
-                            print(f'"{escolha_letra}" INVALID INPUT, TRY AGAIN')
+                            print(f'{FAIL}"{escolha_letra}" INVALID INPUT\nTRY AGAIN{ENDC}')
+
         else:  # PORTUGUÊS
             while jogo:
                 palavra_escolhida = choice(dificuldade)
@@ -127,56 +141,68 @@ while menu:
                 escolha_letra = ''
                 contador = 0
 
-                continuar = input('\nPRESSIONE QUALQUER TECLA PARA CONTINUAR\n--->')
+                continuar = input(f'{WARNING}\nPRESSIONE QUALQUER TECLA PARA CONTINUAR\n--->{ENDC}')
 
                 sys('cls')
                 while True:
                     if len(dificuldade) < 0:
-                        print(f'\t\tPARABÉN, VOCÊ ACERTOU TODAS AS PALAVARS!')
-                        print(f'\n\nTENTE UMA DIFICULDADE DIFERENTE QUE VOCE NÃO TENHA COMPLETADO AINDA')
-                        continuar = input('PRESSIONE QUALQUER TECLA PARA CONTINUAR\n--->')
+                        print(f'\t\t{OKGREEN}{BOLD}PARABÉN, VOCÊ ACERTOU TODAS AS PALAVARS!{ENDC}')
+                        print(f'\n\n{BOLD}TENTE UMA DIFICULDADE DIFERENTE QUE VOCE NÃO TENHA COMPLETADO AINDA{ENDC}')
+                        continuar = input(f'{WARNING}PRESSIONE QUALQUER TECLA PARA CONTINUAR\n--->{ENDC}')
                         person = [nome, dificuldade_name, fase]
                         insert_one(person)
                         break
 
                     if vidas == 0:
                         sys('cls')
-                        print(f'GAME OVER\nA PALAVRA ERA {palavra_escolhida.upper()}')
+                        print(f'{FAIL}{BOLD}GAME OVER{ENDC}\nA PALAVRA ERA {OKGREEN}{palavra_escolhida.upper()}{ENDC}')
                         sleep(1)
-                        print(f'GAME OVER\nVOCÊ CHEGOU ATÉ A FASE: {fase}')
-                        continuar = input('PRESSIONE QUALQUER TECLA PARA CONTINUAR\n--->')
+                        print(f'{FAIL}{BOLD}GAME OVER{ENDC}\n{BOLD}VOCÊ CHEGOU ATÉ A FASE: {OKGREEN}{fase}{ENDC}')
+                        continuar = input(f'{WARNING}PRESSIONE QUALQUER TECLA PARA CONTINUAR\n--->{ENDC}')
                         jogo = False
                         person = [nome, dificuldade_name, fase]
                         insert_one(person)
                         break
                     
-                    print(f'VIDAS: {vidas}\t\tFASE: {fase}\t\tNÍVEL: {dificuldade_name}\n')
-                    print(f'letras escolhidas: {letras_escolhidas}')
+                    print(f'{HEADER}{BOLD}VIDAS: {OKGREEN}{vidas}{ENDC}\t\t{HEADER}FASE: {OKGREEN}{fase}{ENDC}\t\t{OKGREEN}NÍVEL: {dificuldade_name}{ENDC}\n')
+                    print(f'{BOLD}letras escolhidas: {FAIL}{letras_escolhidas}{ENDC}')
 
-                    print('palavra escolhida: ', end='')
+                    print(f'{BOLD}palavra escolhida: ', end='')
                     contador = 0
                     for i in palavra_escolhida:
                         if i in letras_escolhidas:
-                            print(i, end=' ')
+                            print(f'{OKGREEN}', i, f'{ENDC}', end=' ')
                             contador += 1
                         else:
-                            print('_', end=' ')
+                            print(f'{FAIL}_{ENDC}', end=' ')
                 
                     if contador == len(palavra_escolhida):
                         print('\n')
                         sys('cls')
-                        print(f'PARABÉNS, VOCÊ ACEROU!\nA PALAVRA ERA {palavra_escolhida.upper()}')
+                        print(f'{OKGREEN}{BOLD}PARABÉNS, VOCÊ ACEROU!{ENDC}\nA PALAVRA ERA {WARNING}{palavra_escolhida.upper()}{ENDC}')
                         letras_escolhidas.clear()
                         break
 
                     else:
                         print('\n')
-                        print('escolha letra', end=' ')
-                        escolha_letra = input('--->').lower()
+                        print(f'{FAIL}[0] QUIT{ENDC}')
+                        print(f'{WARNING}escolha letra', end=' ')
+                        escolha_letra = input(f'--->{ENDC}').lower()
+
+                        if escolha_letra == '0':
+                            sys('cls')
+                            print(f'{BOLD}DESEJA REALMENTE SAIR DA PARTIDA?\n{FAIL}[0] QUIT\n{OKGREEN}[qualquer tecla] CONTINUAR{ENDC}')
+                            sair = input(f'{WARNING}--->{ENDC}')
+                            if sair == '0':
+                                jogo = False
+                                break
+                            else:
+                                sys('cls')
 
                         if escolha_letra == palavra_escolhida:
+                            print('\n')
                             sys('cls')
-                            print(f'PARABÉNS, VOCÊ ACEROU!\nA PALAVRA ERA {palavra_escolhida.upper()}')
+                            print(f'{OKGREEN}{BOLD}PARABÉNS, VOCÊ ACEROU!{ENDC}\nA PALAVRA ERA {WARNING}{palavra_escolhida.upper()}{ENDC}')
                             letras_escolhidas.clear()
                             break
 
@@ -185,19 +211,21 @@ while menu:
                             sys('cls')
                             if escolha_letra not in palavra_escolhida:
                                 sys('cls')
-                                print(f'ESSA PALAVRA NÃO POSSUI A LETRA {escolha_letra}, TENTE NOVAMENTE\n{vidas - 1} VIDAS RESTANTES')
+                                print(f'{BOLD}ESSA PALAVRA NÃO POSSUI A LETRA {FAIL}{escolha_letra}{ENDC}\n{BOLD}TENTE NOVAMENTE\n{FAIL}{vidas - 1} VIDAS RESTANTES{ENDC}')
                                 vidas -= 1
                                 sleep(1)
                                 sys('cls')
+
                         elif escolha_letra != palavra_escolhida and len(escolha_letra) == len(palavra_escolhida):
                             sys('cls')
-                            print(f'ESSA PALAVRA NÃO É {escolha_letra}, TENTE NOVAMENTE\n{vidas - 1} VIDAS RESTANTES')
+                            print(f'{BOLD}ESSA PALAVRA NÃO É {FAIL}{escolha_letra}{ENDC}\n{BOLD}TENTE NOVAMENTE\n{ENDC}{FAIL}{vidas - 1} VIDAS RESTANTES{ENDC}')
                             vidas -= 1
                             sleep(1)
                             sys('cls')
-                        else:
+
+                        elif escolha_letra != '0':
                             sys('cls')
-                            print(f'"{escolha_letra}" INPUT INVÁLIDO, TENTE NOVAMENTE')
+                            print(f'{FAIL}"{escolha_letra}" INPUT INVÁLIDO\nTENTE NOVAMENTE{ENDC}')
 
     elif escolha_menu == 2:
         dificuldade, dificuldade_name = escolher_dificuldade(dificuldade, dificuldade_name)
@@ -212,10 +240,10 @@ while menu:
     elif escolha_menu == 5:
         if dificuldade_name == 'english':  #INGLÊS
             sys('cls')
-            print('THANKS TO PLAY!')
+            print(f'\t\t{HEADER}{BOLD}THANKS TO PLAY!{ENDC}')
             menu = False
             
         else:  # PORTUGÊS
             sys('cls')
-            print('OBRIGADO POR JOGAR!')
+            print(f'\t\t{HEADER}{BOLD}OBRIGADO POR JOGAR!{ENDC}')
             menu = False

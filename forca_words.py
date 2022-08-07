@@ -1,3 +1,10 @@
+HEADER = '\033[95m'
+OKGREEN = '\033[92m'
+WARNING = '\033[93m'
+FAIL = '\033[91m'
+ENDC = '\033[0m'
+BOLD = '\033[1m'
+
 easy = ['Amarelo', 'Amiga', 'Amor', 'Ave', 'Avião', 'Avó', 'Balão', 'Bebê', 'Bolo', 'Branco', 'Cama', 'Caneca', 'Celular', 'Céu', 'Clube', 'Copo', 'Doce', 'Elefante', 'Escola', 'Estojo', 'Faca', 'Foto', 'Garfo', 'Geleia', 'Girafa', 'Janela', 'Limonada', 'Mãe', 'Meia', 'Noite', 'Óculos', 'ônibus', 'Ovo', 'Pai', 'Pão', 'Parque', 'Passarinho', 'Peixe', 'Pijama', 'Rato', 'Umbigo']
 
 medium = ['Acender', 'Afilhado', 'Agnóstico', 'Ardiloso', 'Áspero', 'Assombração', 'Asterisco', 'Balaústre', 'Basquete', 'Caminho', 'Champanhe', 'Chiclete', 'Chuveiro', 'Coelho', 'Contexto', 'Convivência', 'Desalmado', 'Eloquente', 'Esquerdo', 'Exceção', 'Filantropo', 'Fugaz', 'Gororoba', 'Horrorizado', 'Idiossincrasia', 'Impacto', 'Inócuo', 'Independência', 'Jocoso', 'Laurel', 'Modernidade', 'Oftalmologista', 'Otorrinolaringologista', 'Panaceia', 'Paralelepípedo', 'Pororoca', 'Prognósticio', 'Quarentena', 'Quimera', 'Refeição', 'Reportagem', 'Sino', 'Taciturno', 'Temperança', 'Tênue', 'Ufanismo', 'Viscera']
