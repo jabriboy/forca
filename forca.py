@@ -1,4 +1,5 @@
 from random import choice
+from tkinter import END
 from forca_data_base import *
 from forca_functions import *
 from time import sleep
@@ -13,8 +14,10 @@ while menu:
         if dificuldade_name == 'english':  # INGLÊS
             sys('cls')
             nome = input(f'{WARNING}TYPE YOUR NAME: {ENDC}').title()
+            nome = nome[:20]
             fase = 0
             palavras = 0
+            dica = 1
             vidas = 6
             letras_escolhidas = []
 
@@ -23,8 +26,9 @@ while menu:
         else:  # PORTUGÊS
             sys('cls')
             nome = input(f'{WARNING}DIGITE SEU NOME: {ENDC}').title()
+            nome = nome[:20]
             fase = 0
-            palavras = 0
+            dica = 1
             vidas = 6
             letras_escolhidas = []
 
@@ -43,6 +47,9 @@ while menu:
                 tam_palavra = len(palavra_escolhida)
                 escolha_letra = ''
                 contador = 0
+
+                if fase % 5 == 0:
+                    dica += 1
 
                 continuar = input(f'\n{WARNING}PRESS ANY KEY TO CONTINUE\n--->{ENDC}')
 
@@ -67,7 +74,7 @@ while menu:
                         insert_one(person)
                         break
                     
-                    print(f'{HEADER}{BOLD}LIFES: {OKGREEN}{vidas}{ENDC}\t\t{HEADER}LEVEL: {OKGREEN}{fase}{ENDC}\t\t{OKGREEN}DIFICULTY: {dificuldade_name}{ENDC}\n')
+                    print(f'{HEADER}{BOLD}LIFES: {OKGREEN}{vidas}{ENDC}\t\t{HEADER}LEVEL: {OKGREEN}{fase}{ENDC}\t\t{HEADER}HINT:{ENDC} {OKGREEN}{dica}{ENDC}\t\t{OKGREEN}DIFICULTY: {dificuldade_name}{ENDC}\n')
                     print(f'{BOLD}letters chosen: {FAIL}{letras_escolhidas}{ENDC}')
 
                     print(f'{BOLD}chosen word: ', end='')
@@ -88,6 +95,7 @@ while menu:
 
                     else:
                         print('\n')
+                        print(f'{OKGREEN}[1] HINT{ENDC}')
                         print(f'{FAIL}[0] QUIT{ENDC}')
                         print(f'{WARNING}choose letter', end=' ')
                         escolha_letra = input(f'--->{ENDC}').lower()
@@ -101,6 +109,23 @@ while menu:
                                 break
                             else:
                                 sys('cls')
+
+                        elif escolha_letra == '1' and dica > 0:
+                            for i in palavra_escolhida:
+                                if i not in letras_escolhidas:
+                                    escolha_letra = i
+                                    break
+                            dica -= 1
+                            sys('cls')
+                            print(f'{OKGREEN}HINT: {escolha_letra}{ENDC}')
+                            print(f'{BOLD}HINTS LEFT: {FAIL}{dica}{ENDC}')
+                            continuar = input(f'{WARNING}PRESS ANY KEY TO CONTINUE\n--->{ENDC}')
+                            sys('cls')
+                        
+                        elif escolha_letra == '1' and dica < 1:
+                            print(f'{BOLD}{FAIL}NO HINTS LEFT: {dica}{ENDC}\n')
+                            continuar = input(f'{WARNING}PRESS ANY KEY TO CONTINUE\n--->{ENDC}')
+                            sys('cls')
 
                         if escolha_letra == palavra_escolhida:
                             sys('cls')
@@ -125,7 +150,7 @@ while menu:
                             sleep(1)
                             sys('cls')
 
-                        elif escolha_letra != '0':
+                        elif escolha_letra != '0' and escolha_letra != '1':
                             sys('cls')
                             print(f'{FAIL}"{escolha_letra}" INVALID INPUT\nTRY AGAIN{ENDC}')
 
@@ -140,6 +165,9 @@ while menu:
                 tam_palavra = len(palavra_escolhida)
                 escolha_letra = ''
                 contador = 0
+
+                if fase % 5 == 0:
+                    dica += 1
 
                 continuar = input(f'{WARNING}\nPRESSIONE QUALQUER TECLA PARA CONTINUAR\n--->{ENDC}')
 
@@ -164,7 +192,7 @@ while menu:
                         insert_one(person)
                         break
                     
-                    print(f'{HEADER}{BOLD}VIDAS: {OKGREEN}{vidas}{ENDC}\t\t{HEADER}FASE: {OKGREEN}{fase}{ENDC}\t\t{OKGREEN}NÍVEL: {dificuldade_name}{ENDC}\n')
+                    print(f'{HEADER}{BOLD}VIDAS: {OKGREEN}{vidas}{ENDC}\t\t{HEADER}FASE: {OKGREEN}{fase}{ENDC}\t\t{HEADER}DICAS:{ENDC}{OKGREEN} {dica}{ENDC}\t\t{OKGREEN}NÍVEL: {dificuldade_name}{ENDC}\n')
                     print(f'{BOLD}letras escolhidas: {FAIL}{letras_escolhidas}{ENDC}')
 
                     print(f'{BOLD}palavra escolhida: ', end='')
@@ -185,6 +213,7 @@ while menu:
 
                     else:
                         print('\n')
+                        print(f'{OKGREEN}[1] DICA{ENDC}')
                         print(f'{FAIL}[0] QUIT{ENDC}')
                         print(f'{WARNING}escolha letra', end=' ')
                         escolha_letra = input(f'--->{ENDC}').lower()
@@ -198,6 +227,23 @@ while menu:
                                 break
                             else:
                                 sys('cls')
+                        
+                        elif escolha_letra == '1' and dica > 0:
+                            for i in palavra_escolhida:
+                                if i not in letras_escolhidas:
+                                    escolha_letra = i
+                                    break
+                            dica -= 1
+                            sys('cls')
+                            print(f'{OKGREEN}DICA: {escolha_letra}{ENDC}')
+                            print(f'{BOLD}DICAS RESTANTES: {FAIL}{dica}{ENDC}')
+                            continuar = input(f'{WARNING}\nPRESSIONE QUALQUER TECLA PARA CONTINUAR\n--->{ENDC}')
+                            sys('cls')
+                        
+                        elif escolha_letra == '1' and dica < 1:
+                            print(f'{BOLD}{FAIL}SEM DICAS SOBRANDO: {dica}{ENDC}\n')
+                            continuar = input(f'{WARNING}\nPRESSIONE QUALQUER TECLA PARA CONTINUAR\n--->{ENDC}')
+                            sys('cls')
 
                         if escolha_letra == palavra_escolhida:
                             print('\n')
