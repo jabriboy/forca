@@ -1,6 +1,7 @@
 from random import choice
 from forca_functions import *
 from time import sleep
+from forca_data_base import *
 
 dificuldade = easy.copy()
 dificuldade_name = 'easy'
@@ -9,7 +10,7 @@ while menu:
     escolha_menu = escolher_menu(dificuldade_name)
 
     if escolha_menu == 1:
-        if dificuldade_name == 'english':
+        if dificuldade_name == 'english':  # INGLÊS
             sys('cls')
             nome = input('TYPE YOUR NAME: ').title()
             fase = 0
@@ -19,7 +20,7 @@ while menu:
 
             sys('cls')
             print(f'WELCOME TO THE HANGMAN GAME {nome}\nTHINK CAREFULY, IF YOU MESS UP 6 TIMES IT WILL BE GAME OVER!\n')
-        else:
+        else:  # PORTUGÊS
             sys('cls')
             nome = input('DIGITE SEU NOME: ').title()
             fase = 0
@@ -31,7 +32,7 @@ while menu:
             print(f'SEJA MUITO BEM VINDO AO JOGO DA FORCA {nome}\nPENSE COM CUIDADO, PORQUE SE VACILAR 6 VEZES SERÁ GAME OVER!\n')
 
         jogo = True
-        if dificuldade_name == 'english':
+        if dificuldade_name == 'english':  # INGLÊS
             while jogo:
                 palavra_escolhida = choice(dificuldade)
                 dificuldade.remove(palavra_escolhida)
@@ -47,6 +48,14 @@ while menu:
 
                 sys('cls')
                 while True:
+                    if len(dificuldade) < 0:
+                        print(f'\t\tCONGRATULATIONS, YOU GOT ALL WORD CORRECTLY!')
+                        print(f'\n\nTRY A DIFFERENT DIFICULTY YOU HAVE NOT COMPLETED YET')
+                        continuar = input('PRESS ANY KEY TO CONTINUE\n--->')
+                        person = [nome, dificuldade_name, fase]
+                        insert_one(person)
+                        break
+
                     if vidas == 0:
                         sys('cls')
                         print(f'GAME OVER\nTHE WORD WAS {palavra_escolhida.upper()}')
@@ -54,6 +63,8 @@ while menu:
                         print(f'GAME OVER\nYOU GOT TO LEVEL: {fase}')
                         continuar = input('PRESS ANY KEY TO CONTINUE\n--->')
                         jogo = False
+                        person = [nome, dificuldade_name, fase]
+                        insert_one(person)
                         break
                     
                     print(f'LIFES: {vidas}\t\tLEVEL: {fase}\t\tDIFICULTY: {dificuldade_name}\n')
@@ -104,7 +115,7 @@ while menu:
                         else:
                             sys('cls')
                             print(f'"{escolha_letra}" INVALID INPUT, TRY AGAIN')
-        else:
+        else:  # PORTUGUÊS
             while jogo:
                 palavra_escolhida = choice(dificuldade)
                 dificuldade.remove(palavra_escolhida)
@@ -120,6 +131,14 @@ while menu:
 
                 sys('cls')
                 while True:
+                    if len(dificuldade) < 0:
+                        print(f'\t\tPARABÉN, VOCÊ ACERTOU TODAS AS PALAVARS!')
+                        print(f'\n\nTENTE UMA DIFICULDADE DIFERENTE QUE VOCE NÃO TENHA COMPLETADO AINDA')
+                        continuar = input('PRESSIONE QUALQUER TECLA PARA CONTINUAR\n--->')
+                        person = [nome, dificuldade_name, fase]
+                        insert_one(person)
+                        break
+
                     if vidas == 0:
                         sys('cls')
                         print(f'GAME OVER\nA PALAVRA ERA {palavra_escolhida.upper()}')
@@ -127,6 +146,8 @@ while menu:
                         print(f'GAME OVER\nVOCÊ CHEGOU ATÉ A FASE: {fase}')
                         continuar = input('PRESSIONE QUALQUER TECLA PARA CONTINUAR\n--->')
                         jogo = False
+                        person = [nome, dificuldade_name, fase]
+                        insert_one(person)
                         break
                     
                     print(f'VIDAS: {vidas}\t\tFASE: {fase}\t\tNÍVEL: {dificuldade_name}\n')
@@ -185,12 +206,16 @@ while menu:
         regras(dificuldade_name)
 
     elif escolha_menu == 4:
-        if dificuldade_name == 'english':
+        ranking_list = get_all()
+        ranking(ranking_list, dificuldade_name)
+
+    elif escolha_menu == 5:
+        if dificuldade_name == 'english':  #INGLÊS
             sys('cls')
             print('THANKS TO PLAY!')
             menu = False
             
-        else:
+        else:  # PORTUGÊS
             sys('cls')
             print('OBRIGADO POR JOGAR!')
             menu = False

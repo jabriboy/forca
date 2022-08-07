@@ -10,7 +10,7 @@ def escolher_menu(dificuldade_name):
     if dificuldade_name == 'english':
         while True:
             try:
-                print(f'\t\tHANGMAN\n\n\t[1] PLAY\n\t[2] SELECT DIFICULTY (current - {dificuldade_name.upper()})\n\t[3] GAME RULES\n\t[4] QUIT\n')
+                print(f'\t\tHANGMAN\n\n\t[1] PLAY\n\t[2] SELECT DIFICULTY (current - {dificuldade_name.upper()})\n\t[3] GAME RULES\n\t[4] RANKING\n\t[5] QUIT\n')
                 escolha_menu = int(input('--->'))
                 break
             except ValueError:
@@ -19,7 +19,7 @@ def escolher_menu(dificuldade_name):
     else:
         while True:
             try:
-                print(f'\t\tJOGO DA FORCA\n\n\t[1] INICIAR JOGO\n\t[2] SELECIONAR DIFICULDADE (atual - {dificuldade_name.upper()})\n\t[3] REGRAS DO JOGO\n\t[4] QUIT\n')
+                print(f'\t\tJOGO DA FORCA\n\n\t[1] INICIAR JOGO\n\t[2] SELECIONAR DIFICULDADE (atual - {dificuldade_name.upper()})\n\t[3] REGRAS DO JOGO\n\t[4] RANKING\n\t[5] QUIT\n')
                 escolha_menu = int(input('--->'))
                 break
             except ValueError:
@@ -89,3 +89,105 @@ def regras(dificuldade_name):
         print(f'\tTENTE ACERTAR TODAS AS PALAVRAS DE TODOS OS NÍVEIS, E VOCÊ SERÁ UM VERDADEIRO MESTRE DAS PALAVARS')
         print('\n\n--->PRECIONE QULQUER TECLA PARA VOLTAR AO MENU PRINCIPAL<---\n')
         sair = input('--->')
+
+def ranking(ranking_list, dificuldade_name):
+    easy_list = []
+    medium_list = []
+    hard_list = []
+    english_list = []
+    for person in ranking_list:
+        _, level, _ = person
+        if level == 'easy':
+            easy_list.append(person)
+        elif level == 'medium':
+            medium_list.append(person)
+        elif level == 'hard':
+            hard_list.append(person)
+        elif level == 'english':
+            english_list.append(person)
+
+    easy_list.sort(key=lambda tupla: tupla[2], reverse=True)
+    medium_list.sort(key=lambda tupla: tupla[2], reverse=True)
+    hard_list.sort(key=lambda tupla: tupla[2], reverse=True)
+    english_list.sort(key=lambda tupla: tupla[2], reverse=True)
+
+    easy_list = easy_list[:10]
+    medium_list = medium_list[:10]
+    hard_list = hard_list[:10]
+    english_list = english_list[:10]
+
+    if dificuldade_name == 'english':
+        sys('cls')
+        while True:
+            try:
+                print(f'\t\tRANKINGS\n\n\t[1] EASY\n\t[2] MEDIUM\n\t[3] HARD\n\t[4] ENGLISH\n\n\t[5] MAIN MENU\n')
+                escolha_ranking = int(input('--->'))
+                break
+            except ValueError:
+                sys('cls')
+                print('typed input must be integer, try again')
+    else:
+        sys('cls')
+        while True:
+            try:
+                print(f'\t\tRANKINGS\n\n\t[1] EASY\n\t[2] MEDIUM\n\t[3] HARD\n\t[4] ENGLISH\n\n\t[5] MENU PRINCIPAL\n')
+                escolha_ranking = int(input('--->'))
+                break
+            except ValueError:
+                sys('cls')
+                print('Valor digitado deve ser inteiro, tente novamente')
+    
+    if escolha_ranking == 1:
+        sys('cls')
+        print(f'\t\t\tEASY RANKINGS')
+        for i in easy_list:
+            nome, _, fase = i
+            print(f'\t{nome} ---> {fase}')
+
+        if dificuldade_name == 'english':
+            print('\n\n--->PRESS ANY KEY TO GO BACK TO MAIN MENU<---\n')
+        else:
+            print('\n\n--->PRECIONE QULQUER TECLA PARA VOLTAR AO MENU PRINCIPAL<---\n')
+        sair = input('--->')
+
+    elif escolha_ranking == 2:
+        sys('cls')
+        print(f'\t\t\tMEDIUM RANKINGS')
+        for i in medium_list:
+            nome, _, fase = i
+            print(f'\t{nome} ---> {fase}')
+
+        if dificuldade_name == 'english':
+            print('\n\n--->PRESS ANY KEY TO GO BACK TO MAIN MENU<---\n')
+        else:
+            print('\n\n--->PRECIONE QULQUER TECLA PARA VOLTAR AO MENU PRINCIPAL<---\n')
+        sair = input('--->')
+
+    elif escolha_ranking == 3:
+        sys('cls')
+        print(f'\t\t\tHARD RANKINGS')
+        for i in hard_list:
+            nome, _, fase = i
+            print(f'\t{nome} ---> {fase}')
+
+        if dificuldade_name == 'english':
+            print('\n\n--->PRESS ANY KEY TO GO BACK TO MAIN MENU<---\n')
+        else:
+            print('\n\n--->PRECIONE QULQUER TECLA PARA VOLTAR AO MENU PRINCIPAL<---\n')
+        sair = input('--->')
+
+    elif escolha_ranking == 4:
+        sys('cls')
+        print(f'\t\t\tENGLISH RANKINGS')
+        for i in english_list:
+            nome, _, fase = i
+            print(f'\t{nome} ---> {fase}')
+
+        if dificuldade_name == 'english':
+            print('\n\n--->PRESS ANY KEY TO GO BACK TO MAIN MENU<---\n')
+        else:
+            print('\n\n--->PRECIONE QULQUER TECLA PARA VOLTAR AO MENU PRINCIPAL<---\n')
+        sair = input('--->')
+
+    return 1
+
